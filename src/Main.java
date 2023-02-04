@@ -1,7 +1,5 @@
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -9,16 +7,11 @@ import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static java.nio.file.Files.newBufferedReader;
-import static java.nio.file.Files.newBufferedWriter;
-
 public class Main {
     private static final Charset GB18030 = Charset.forName("GB18030");
-    private static final CharsetEncoder GB18030_ENC = GB18030.newEncoder();
     private static final HexFormat HF = HexFormat.of();
     private static final Path ENC_OUT = Path.of("out/enc_out");
     private static final Path DEC_OUT = Path.of("out/dec_out");
@@ -60,7 +53,7 @@ public class Main {
 
     static Map<Integer, Integer> loadMap(String mapfile, boolean isEncoding) throws Exception {
         return Files.readAllLines(Path.of(mapfile)).stream()
-                .map(line -> line.split("[\s\t]+"))
+                .map(line -> line.split("[ \t]+"))
                 .collect(Collectors.toMap(m -> Integer.parseUnsignedInt(m[isEncoding ? 0 : 1], 16),
                         m -> Integer.parseUnsignedInt(m[isEncoding ? 1 : 0], 16)));
     }
