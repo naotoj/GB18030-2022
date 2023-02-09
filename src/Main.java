@@ -78,6 +78,6 @@ public class Main {
         var mapped = Integer.toUnsignedString(mapping.getOrDefault(gbcode, 0x3f), 16);
         return  mapped.equals("0") || mapped.equals("3f") || cp.equals(mapped) ?
                 null :
-                "gbcode: " + Integer.toHexString(gbcode) + ", map: " + mapped + ", conv: " + cp;
+                "gbbytes: " + Integer.toHexString(gbcode) + ", map: " + mapped + ", conv: " + cp;
     }
 }
